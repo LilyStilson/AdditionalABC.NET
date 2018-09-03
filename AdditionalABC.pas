@@ -1,13 +1,6 @@
-﻿unit AdditionalABC;
+unit AdditionalABC;
 
-interface
-  
-  type
-    frac = record
-      m: Integer;
-      n: 1..maxint;
-    end;
-    
+interface 
   function Division (x:Integer):Integer;
   function Prime (x:Integer):boolean;
   function GCD (x, y:Integer):integer;
@@ -28,18 +21,11 @@ interface
   function DelWord (Str: String; k: Integer): String;
   function ToWordsNonSeparated (Str: String): array of String;
   
-  procedure author;
   procedure WritelnMatrix<T> (a: array [,] of T; n, m: Integer);
   procedure MatrixUpperD<T> (a: array [,] of T; n, m: Integer);
   procedure MatrixLowerD<T> (a: array [,] of T; n, m: Integer);
-    
+
 implementation
-  
-//Copyright
-procedure Author;                            
-begin    
-  writeln('This program is under GNU GPL V3.0 License, 2017, Kostya Romanets, 10V, LIT, Khabarovsk');
-end;
 
 //Divisors  
 function Division (x:Integer):Integer;       
@@ -122,20 +108,21 @@ begin
   a[a.High]:=n;
   c:=a.High;
   //if a[0]=a.Max then
-    {for var j:=a.High-1 downto i+1 do
-      begin
-        swap (a[j], a[c]);
-        dec (c);
-      end;
-  else}
+  for var j:=a.High-1 downto i+1 do
+    begin
+      swap (a[j], a[c]);
+      dec (c);
+    end;
+   {
     for var j:=a.High-1 downto i do
       begin
         swap (a[j], a[c]);
         dec (c);
-      end;   
+      end;   }
   InsArr:=a;
 end;
- 
+
+//Exchange array sorting method
 function SortE (a: array of Integer):array of Integer;
 var
   n: Integer;
@@ -146,7 +133,8 @@ begin
       if a[i]>a[i+1] then
         swap (a[i], a[i+1]);
 end;
-  
+
+//Swap array sorting method
 function SortS (a: array of Integer):array of Integer;
 var
   n, min_index: Integer;
@@ -161,7 +149,8 @@ begin
       swap (a[k], a[min_index]);
     end;
 end;
-  
+
+//Insert array sorting method
 function SortI (a: array of Integer):array of Integer;
 var
   m, n, tmp: Integer;
@@ -180,6 +169,7 @@ begin
     end;
 end;
 
+//Returns average number in whole dynamic array
 function ArrayAverage (a: array of Integer):Real;
 var
   n, s: Integer;
@@ -190,6 +180,7 @@ begin
   ArrayAverage:=s/n;
 end;
 
+//Write dynamic matrix to screen as table
 procedure WritelnMatrix<T> (a: array [,] of T; n, m: Integer);
 begin
   for var i:=0 to n-1 do
@@ -200,7 +191,8 @@ begin
     end;
   writeln;
 end;
-  
+
+//Write upper dynamic matrix diagonal
 procedure MatrixUpperD<T> (a: array [,] of T; n, m: Integer);
 begin
   for var i:=0 to n-1 do
@@ -213,7 +205,8 @@ begin
       writeln;
     end;         
 end;
-  
+
+//Write lower matrix diagonal
 procedure MatrixLowerD<T> (a: array [,] of T; n, m: Integer);
 begin
   for var i:=0 to n-1 do
@@ -226,7 +219,8 @@ begin
       writeln;
     end;         
 end;
-  
+
+//Returns max number from dynamic matrix
 function MatrixMax (a: array [,] of Integer; n, m:Integer):Integer;
 var
   max: Integer;
@@ -239,6 +233,7 @@ begin
   MatrixMax:=max;
 end; 
 
+//Returns substring from String
 function FindSubStr (subStr, Str: String; k: Integer): Integer;
 var
   n: Integer;
@@ -251,6 +246,7 @@ begin
     FindSubStr:=0;
 end;
 
+//Returns string without odd spaces
 function ClearStr (Str: String): String;
 var
   c: String;
@@ -261,7 +257,8 @@ begin
       c:=c+s[i]+' ';
   ClearStr:=c;
 end;
-  
+
+//Returns K-posed word from String
 function FindWord (Str: String; k: Integer): String;
 var
   s: array of String;
@@ -270,6 +267,7 @@ begin
   FindWord:=s[k+1];
 end;
 
+//Returns words ammount in String
 function WordAmmount (Str: String): Integer;
 var
   s: array of String;
@@ -278,6 +276,7 @@ begin
   WordAmmount:=s.High+1;
 end;
 
+//Reverses words's order in String
 function ReverseString (Str: String): String;
 var
   c: String;
@@ -289,13 +288,13 @@ begin
   ReverseString:=c;
 end;
 
+//Deletes K-posed word from String
 function DelWord (Str: String; k: Integer): String;
 var
   s: array of String;
 begin
   s:=Str.ToWords;
   s[k]:='';
-  
   for var i:=k+1 to s.High do
     begin
       swap (s[k], s[i]);
@@ -303,7 +302,8 @@ begin
     end;  
   DelWord:=s.ToString;
 end;
-  
+
+//Returns array of words separated by ';' symbol that String contains
 function ToWordsNonSeparated (Str: String): array of String;
 var
   k: Integer;
