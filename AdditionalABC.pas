@@ -20,6 +20,7 @@ interface
   function ReverseString (Str: String): String;
   function DelWord (Str: String; k: Integer): String;
   function ToWordsNonSeparated (Str: String): array of String;
+  function BinToDec (Bin: String): Real;
   
   procedure WritelnMatrix<T> (a: array [,] of T; n, m: Integer);
   procedure MatrixUpperD<T> (a: array [,] of T; n, m: Integer);
@@ -321,4 +322,19 @@ begin
       inc (k);
   ToWordsNonSeparated:=s;
 end;
+
+//Binary string to Decimal converter
+function BinToDec (Bin: String): Real;
+begin
+  var RevBin: String := ReverseString(Bin);
+  
+  for var i := 0 to RevBin.Length do
+    try
+      if RevBin[i + 1] = '1' then
+        Result += power (2, i);
+    except
+      break
+    end;
+end;
+
 end.
